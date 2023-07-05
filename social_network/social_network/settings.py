@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # inner apps
     'user',
+    'post',
 ]
 
 MIDDLEWARE = [
