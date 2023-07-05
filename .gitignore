@@ -55,6 +55,9 @@ pip-selfcheck.json
 # *.iml
 # *.ipr
 
+# Migrations
+0*.py
+
 # CMake
 cmake-build-*/
 
