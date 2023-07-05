@@ -13,3 +13,21 @@ services:
       sh -c "python manage.py makemigrations \
       && python manage.py migrate \
       && python manage.py runserver 0.0.0.0:8080"
+    depends_on:
+      - social_network_db
+
+  social_network_db:
+      image: postgres:14.6-alpine
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=root
+      ports:
+        - 5432:5432
+      expose:
+        - 5432
+
+volumes:
+  postgres_data:
