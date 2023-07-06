@@ -1,15 +1,7 @@
 from rest_framework import serializers
 
-from .models import PostModel
+from .models import PostModel, LikePostModel
 from user.serializers import UserSerializer
-
-
-class CreatePostSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
-
-    class Meta:
-        model = PostModel
-        fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -26,3 +18,20 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_dislikes_count(self, obj) -> int:
         return obj.dislikes_count()
+
+
+class PostAnalyticSerializer(serializers.ModelSerializer):
+    post = PostSerializer(read_only=True)
+    likes = serializers.SerializerMethodField()
+
+    class Meta:
+        model = LikePostModel
+        exclude = ('user', 'id')
+
+    def get_likes(self, obj) -> int:
+        likes = LikePostModel.objects.filter(
+            post_id=obj.post_id,
+            created_at=obj.created_at
+        ).count()
+        return likes
+

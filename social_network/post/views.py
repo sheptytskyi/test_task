@@ -1,23 +1,20 @@
+import datetime
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.views import APIView
 
-from .serializers import PostSerializer, CreatePostSerializer
-from .models import PostModel
+from .serializers import PostSerializer, PostAnalyticSerializer
+from .models import PostModel, LikePostModel
 
 
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticated,)
     queryset = PostModel.objects.all()
-
-    def get_serializer_class(self):
-        if self.action == 'create':
-            return CreatePostSerializer
-        return super().get_serializer_class()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -55,3 +52,15 @@ class PostViewSet(ModelViewSet):
 
         except ObjectDoesNotExist:
             return Response(status=404)
+
+
+class PostAnalyticsView(APIView):
+    def get(self, request, *args, **kwargs):
+        date_from = datetime.datetime.strptime(request.GET.get('date_from'), "%Y/%m/%d").date()
+        date_to = datetime.datetime.strptime(request.GET.get('date_to'), "%Y/%m/%d").date()
+        likes = LikePostModel.objects.filter(
+            created_at__gte=date_from,
+            created_at__lte=date_to
+        ).distinct('created_at', 'post_id')
+        data = PostAnalyticSerializer(likes, many=True).data
+        return Response(data)

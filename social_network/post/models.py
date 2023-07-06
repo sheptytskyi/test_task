@@ -2,6 +2,7 @@ from django.db import models
 from uuid import uuid4
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -18,15 +19,17 @@ class PostModel(models.Model):
         null=True
     )
     likes = models.ManyToManyField(
+        User,
         verbose_name=_('likes'),
-        to=User,
+        through='LikePostModel',
         related_name='likes',
         null=True,
         blank=True
     )
     dislikes = models.ManyToManyField(
+        User,
         verbose_name=_('dislikes'),
-        to=User,
+        through='DisLikePostModel',
         related_name='dislikes',
         null=True,
         blank=True
@@ -46,3 +49,15 @@ class PostModel(models.Model):
 
     def dislikes_count(self) -> int:
         return self.dislikes.all().count()
+
+
+class LikePostModel(models.Model):
+    post = models.ForeignKey(PostModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateField(default=timezone.now)
+
+
+class DisLikePostModel(models.Model):
+    post = models.ForeignKey(PostModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateField(default=timezone.now)
