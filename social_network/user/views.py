@@ -14,6 +14,11 @@ class RegisterView(CreateAPIView):
     queryset = CustomUserModel.objects.all()
     serializer_class = UserSerializer
 
+    def post(self, request, *args, **kwargs):
+        user = CustomUserModel.objects.create_user(**request.data)
+        data = self.get_serializer(instance=user).data
+        return Response(data, status=status.HTTP_201_CREATED)
+
 
 class UserActivityView(APIView):
     permission_classes = (IsAuthenticated,)

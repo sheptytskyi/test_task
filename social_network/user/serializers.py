@@ -7,9 +7,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUserModel
         exclude = ('password',)
 
-    def create(self, validated_data):
-        return CustomUserModel.objects.create_user(**validated_data)
-
 
 class UserActivitySerializer(serializers.ModelSerializer):
     class Meta:
