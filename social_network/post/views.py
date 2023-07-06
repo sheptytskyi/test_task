@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 
 from .serializers import PostSerializer, PostAnalyticSerializer
 from .models import PostModel, LikePostModel
+from bot.config import SocialNetworkConfigRules
+from .exceptions import MaxPostsPerUserException, MaxLikesPerUserException
+from .services import is_user_has_posts, is_user_has_likes
 
 
 class PostViewSet(ModelViewSet):
@@ -17,6 +20,12 @@ class PostViewSet(ModelViewSet):
     queryset = PostModel.objects.all()
 
     def create(self, request, *args, **kwargs):
+        config = SocialNetworkConfigRules.get_config()
+
+        if not is_user_has_posts(request.user.id, config.max_posts_per_user):
+            raise MaxPostsPerUserException(f'You have possibility to publish '
+                                           f'only {config.max_posts_per_user} posts')
+
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
@@ -31,7 +40,14 @@ class PostViewSet(ModelViewSet):
 
     @action(methods=['PATCH'], detail=True)
     def like(self, request, *args, **kwargs):
+        config = SocialNetworkConfigRules.get_config()
+
+        if not is_user_has_posts(request.user.id, config.max_likes_per_user):
+            raise MaxLikesPerUserException(f'You have possibility to like '
+                                           f'only {config.max_likes_per_user} times')
         try:
+            config = SocialNetworkConfigRules.get_config()
+            print(config)
             post = PostModel.objects.get(uuid=kwargs['pk'])
             post.dislikes.remove(request.user)
             post.likes.add(request.user)
