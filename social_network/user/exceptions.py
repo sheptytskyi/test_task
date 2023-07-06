@@ -1,0 +1,2 @@
+class MaxNumberOfUserException(Exception):
+    pass
