@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "aaa55efc-a34b-4f02-9287-f0e9de8f6b08",
+		"name": "SocialNetwork",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17689815"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user5\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/token/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user5\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NjM0ODkzLCJpYXQiOjE2ODg2MzQ1OTMsImp0aSI6IjVmMWUxNTUxNTkwNTRhNjQ4YTE2OGExMTI4MmJlZWJmIiwidXNlcl9pZCI6NH0.kOUn2DC-WxBa-0dB7efNsAguyGXyV85T1ZxE4u5fUFw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/user/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"activity"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "All posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTc5MzI0LCJpYXQiOjE2ODg1NzkwMjQsImp0aSI6IjMwNDkyZTRmZmYyNjQ5OTdhMjgzMWFhYWNlOTdiMTU5IiwidXNlcl9pZCI6Mn0.zCt7F1uIP3kECEt26yyiSVt3HjVQKDRE4Spb4WikOZw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/post/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NjgwMjMzLCJpYXQiOjE2ODg2Nzk5MzMsImp0aSI6IjM4M2Q5ZDgzZTgxMTRlNTQ5YWZmZDI3OGU1NTBkYjg0IiwidXNlcl9pZCI6NH0.Od_xjzUQJh-1R0pntMePJIhlnJV6SrJzkEbnFz3DdEg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test post2\",\n    \"content\": \"test content\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/post/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NjgwMjMzLCJpYXQiOjE2ODg2Nzk5MzMsImp0aSI6IjM4M2Q5ZDgzZTgxMTRlNTQ5YWZmZDI3OGU1NTBkYjg0IiwidXNlcl9pZCI6NH0.Od_xjzUQJh-1R0pntMePJIhlnJV6SrJzkEbnFz3DdEg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/post/b177af66-ba1d-47ac-9dbf-bc6f4cb8c549/like/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								"b177af66-ba1d-47ac-9dbf-bc6f4cb8c549",
+								"like",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTc5MzI0LCJpYXQiOjE2ODg1NzkwMjQsImp0aSI6IjMwNDkyZTRmZmYyNjQ5OTdhMjgzMWFhYWNlOTdiMTU5IiwidXNlcl9pZCI6Mn0.zCt7F1uIP3kECEt26yyiSVt3HjVQKDRE4Spb4WikOZw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/post/b6404b80-2598-483f-9971-b3621db92bb3/dislike/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								"b6404b80-2598-483f-9971-b3621db92bb3",
+								"dislike",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NjQwNDU5LCJpYXQiOjE2ODg2NDAxNTksImp0aSI6IjA2MDM3MTFhMmI1MDRhMzZhZWFlZmU4MGYzMDc5ZmI4IiwidXNlcl9pZCI6NH0.rRcWf354yglQVQnuAdcBveeDJCQ7cWTTu2koH6Rc3RA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/post/analytics?date_from=2022/07/05&date_to=2023/10/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								"analytics"
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2022/07/05"
+								},
+								{
+									"key": "date_to",
+									"value": "2023/10/20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
