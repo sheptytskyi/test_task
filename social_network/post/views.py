@@ -42,7 +42,7 @@ class PostViewSet(ModelViewSet):
     def like(self, request, *args, **kwargs):
         config = SocialNetworkConfigRules.get_config()
 
-        if not is_user_has_posts(request.user.id, config.max_likes_per_user):
+        if not is_user_has_likes(request.user.id, config.max_likes_per_user):
             raise MaxLikesPerUserException(f'You have possibility to like '
                                            f'only {config.max_likes_per_user} times')
         try:
