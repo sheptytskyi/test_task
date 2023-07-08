@@ -47,25 +47,25 @@ class PostViewSet(ModelViewSet):
                                            f'only {config.max_likes_per_user} times')
         try:
             post = PostModel.objects.get(uuid=kwargs['pk'])
-            post.dislikes.remove(request.user)
-            post.likes.add(request.user)
-            data = self.get_serializer(instance=post).data
-            return Response(data, status=status.HTTP_200_OK)
-
-        except ObjectDoesNotExist:
+        except PostModel.DoesNotExist:
             return Response(status=404)
+
+        post.dislikes.remove(request.user)
+        post.likes.add(request.user)
+        data = self.get_serializer(instance=post).data
+        return Response(data, status=status.HTTP_200_OK)
 
     @action(methods=['PATCH'], detail=True)
     def dislike(self, request, *args, **kwargs):
         try:
             post = PostModel.objects.get(uuid=kwargs['pk'])
-            post.likes.remove(request.user)
-            post.dislikes.add(request.user)
-            data = self.get_serializer(instance=post).data
-            return Response(data, status=status.HTTP_200_OK)
-
-        except ObjectDoesNotExist:
+        except PostModel.DoesNotExist:
             return Response(status=404)
+
+        post.likes.remove(request.user)
+        post.dislikes.add(request.user)
+        data = self.get_serializer(instance=post).data
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class PostAnalyticsView(APIView):
