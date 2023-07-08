@@ -29,9 +29,7 @@ class PostAnalyticSerializer(serializers.ModelSerializer):
         exclude = ('user', 'id')
 
     def get_likes(self, obj) -> int:
-        likes = LikePostModel.objects.filter(
+        return LikePostModel.objects.filter(
             post_id=obj.post_id,
             created_at=obj.created_at
         ).count()
-        return likes
-
