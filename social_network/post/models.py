@@ -44,9 +44,11 @@ class PostModel(models.Model):
     def __str__(self) -> str:
         return f'{self.title}'
 
+    @property
     def likes_count(self) -> int:
         return self.likes.all().count()
 
+    @property
     def dislikes_count(self) -> int:
         return self.dislikes.all().count()
 
