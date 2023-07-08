@@ -46,8 +46,6 @@ class PostViewSet(ModelViewSet):
             raise MaxLikesPerUserException(f'You have possibility to like '
                                            f'only {config.max_likes_per_user} times')
         try:
-            config = SocialNetworkConfigRules.get_config()
-            print(config)
             post = PostModel.objects.get(uuid=kwargs['pk'])
             post.dislikes.remove(request.user)
             post.likes.add(request.user)
